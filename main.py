@@ -4,14 +4,22 @@ import answer
 import comment
 import constants
 import query
+from dateutil.relativedelta import relativedelta
 
 #start_str = "2022-10-01"
 #end_str = "2022-11-01"
 
 def generate_dates():
-    end_datetime = datetime.datetime.today()
+
+    end_datetime = datetime.datetime.today() + datetime.timedelta(days=1) 
+    # handle start of month dates
+    # Expected output: end_datetime = 2022-11-01 | start_datetime = 2022-10-01
+    if end_datetime == end_datetime.replace(day=1):
+        start_datetime = end_datetime - relativedelta(months=1)
+    else:
+        start_datetime = end_datetime.replace(day=1)
+
     end_date = end_datetime.timestamp()
-    start_datetime = end_datetime.replace(day=1)
     start_date = start_datetime.timestamp()
 
     start_str = str(start_datetime).split(" ")[0]
