@@ -5,14 +5,31 @@ import comment
 import constants
 import query
 
-start_str = "2022-10-01"
-end_str = "2022-11-01"
+#start_str = "2022-10-01"
+#end_str = "2022-11-01"
 
-start_date = datetime.datetime.strptime(start_str, "%Y-%m-%d").timestamp()
-end_date = datetime.datetime.strptime(end_str, "%Y-%m-%d").timestamp()
+def generate_dates():
+    end_datetime = datetime.datetime.today()
+    end_date = end_datetime.timestamp()
+    start_datetime = end_datetime.replace(day=1)
+    start_date = start_datetime.timestamp()
 
-def answer_runner():
-    table_name_suffix = start_str.replace("-","_")[:-3]
+    start_str = str(start_datetime).split(" ")[0]
+    end_str = str(end_datetime).split(" ")[0]
+    year_month = str(start_datetime).split(" ")[0].replace("-","_")[:-3]
+
+    date_info = {
+            "unix_start_date":start_date,
+            "unix_end_date":end_date,
+            "start_date_str":start_str,
+            "end_date_str":end_str,
+            "table_suffix":year_month
+            }
+
+    return date_info
+
+def answer_runner(start_str,end_str,start_date,end_date,table_name_suffix):
+
     table_name = f"answer_{table_name_suffix}"
     table_id = f"{constants.PROJECT_ID}.{constants.DATASET_ID}.{table_name}"
 
@@ -46,8 +63,8 @@ def answer_runner():
             uri=answer_nd_json_uri,
             job_config=answer.ANSWER_JOB_CONFIG)
 
-def comment_runner():
-    table_name_suffix = start_str.replace("-","_")[:-3]
+def comment_runner(start_str,end_str,start_date,end_date,table_name_suffix):
+
     table_name = f"comment_{table_name_suffix}"
     table_id = f"{constants.PROJECT_ID}.{constants.DATASET_ID}.{table_name}"
 
@@ -81,18 +98,25 @@ def comment_runner():
             uri=com_nd_json_uri,
             job_config=comment.COMMENT_JOB_CONFIG)
 
-def query_runner():
-    table_name_suffix = start_str.replace("-","_")[:-3]
-    answer_view_id = query.answer_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
-    comment_view_id = query.comment_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
-    total_view_id = query.total_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
-    summary_view_id = query.summary_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
+def query_runner(table_name_suffix):
+    answer_view_id = query.create_answer_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
+    comment_view_id = query.create_comment_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
+    total_view_id = query.create_total_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
+    summary_view_id = query.create_summary_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
 
 
 def main():
-    answer_runner()
-    comment_runner()
-    query_runner()
+
+    date_dict = generate_dates()
+    table_name_suffix = date_dict["table_suffix"]
+    start_str = date_dict["start_date_str"]
+    end_str = date_dict["end_date_str"]
+    start_date = date_dict["unix_start_date"]
+    end_date = date_dict["unix_end_date"]
+
+    #answer_runner(start_str=start_str,end_str=end_str,start_date=start_date,end_date=end_date,table_name_suffix=table_name_suffix)
+    #comment_runner(start_str=start_str,end_str=end_str,start_date=start_date,end_date=end_date,table_name_suffix=table_name_suffix)
+    #query_runner(table_name_suffix=table_name_suffix)
 
 if __name__ == "__main__":
     main()
