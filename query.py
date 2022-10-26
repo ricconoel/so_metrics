@@ -15,9 +15,8 @@ def try_create_view(view_id,query_str):
 
         return view_id
 
-    except NotFound as error:
-        print(error.message)
-
+    except NotFound:
+        print(f"View {view_id} not found.")
         print("Creating view")
         view = bigquery.Table(view_id)
         view.view_query = query_str
