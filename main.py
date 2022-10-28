@@ -10,6 +10,9 @@ from dateutil.relativedelta import relativedelta
 #end_str = "2022-11-01"
 
 def generate_dates():
+    # DO NOT DELETE
+    # Used for testing specific dates
+    #end_datetime = datetime.datetime(2022,9,30) + datetime.timedelta(days=1) 
 
     end_datetime = datetime.datetime.today() + datetime.timedelta(days=1) 
     # handle start of month dates
@@ -25,6 +28,9 @@ def generate_dates():
     start_str = str(start_datetime).split(" ")[0]
     end_str = str(end_datetime).split(" ")[0]
     year_month = str(start_datetime).split(" ")[0].replace("-","_")[:-3]
+
+    start_date = datetime.datetime.strptime(start_str, "%Y-%m-%d").timestamp()
+    end_date = datetime.datetime.strptime(end_str, "%Y-%m-%d").timestamp()
 
     date_info = {
             "unix_start_date":start_date,
@@ -107,6 +113,8 @@ def comment_runner(start_str,end_str,start_date,end_date,table_name_suffix):
             job_config=comment.COMMENT_JOB_CONFIG)
 
 def query_runner(table_name_suffix):
+
+    filter_answer_view_id = query.create_filter_answer_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
     answer_view_id = query.create_answer_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
     comment_view_id = query.create_comment_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
     total_view_id = query.create_total_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)

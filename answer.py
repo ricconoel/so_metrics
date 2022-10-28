@@ -13,6 +13,7 @@ ANSWER_JOB_CONFIG = bigquery.LoadJobConfig(
             bigquery.SchemaField("is_accepted", "BOOLEAN"),
             bigquery.SchemaField("score", "INTEGER"),
             bigquery.SchemaField("answer_date", "TIMESTAMP"),
+            bigquery.SchemaField("tags", "STRING", mode="REPEATED"),
             ],
         source_format=bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
         write_disposition='WRITE_TRUNCATE',
@@ -23,6 +24,7 @@ def get_answer_data(start_date,end_date,so_ids):
     stack_client = StackAPI(name="stackoverflow",version="2.3")
     answers = stack_client.fetch(
             endpoint="users/{ids}/answers",
+            filter="!nKzQUR4x1Q",
             ids=so_ids,
             fromdate=int(start_date),
             todate=int(end_date)
@@ -45,7 +47,8 @@ def parse_answer(bucket_name,blob_name,prefix) -> str:
                 "question_id": item["question_id"],
                 "is_accepted": item["is_accepted"],
                 "score": item["score"],
-                "answer_date": item["creation_date"]
+                "answer_date": item["creation_date"],
+                "tags": item["tags"]
                 }
         answers.append(answer_dict)
 

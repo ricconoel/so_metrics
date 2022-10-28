@@ -5,7 +5,7 @@ with union_ans_com as (
     user_id,
     display_name,
     question_id
-  from `{project_id}.{dataset_id}.answer_{year_month}`
+  from `{project_id}.{dataset_id}.filtered_answer_{year_month}`
   union all
   select
     distinct
