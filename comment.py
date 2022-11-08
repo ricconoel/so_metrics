@@ -14,6 +14,7 @@ COMMENT_JOB_CONFIG = bigquery.LoadJobConfig(
             bigquery.SchemaField("question_id", "INTEGER"),
             bigquery.SchemaField("post_type", "STRING"),
             bigquery.SchemaField("comment_date", "TIMESTAMP"),
+            bigquery.SchemaField("link", "STRING"),
             ],
         source_format=bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
         write_disposition='WRITE_TRUNCATE',
@@ -24,7 +25,7 @@ def get_comment_data(start_date,end_date,so_ids):
     stack_client = StackAPI(name="stackoverflow",version="2.3")
     comments = stack_client.fetch(
             endpoint="users/{ids}/comments",
-            filter="!nKzQUR8g9t",
+            filter="!nKzQUR8g67", # with post_type, link
             ids=so_ids,
             fromdate=int(start_date),
             todate=int(end_date)
@@ -46,7 +47,8 @@ def parse_comment(bucket_name,blob_name,prefix) -> str:
                 "comment_id": item["comment_id"],
                 "question_id": item["post_id"],
                 "post_type": item["post_type"],
-                "comment_date": item["creation_date"]
+                "comment_date": item["creation_date"],
+                "link": item["link"],
                 }
         comments.append(comment_dict)
 

@@ -6,6 +6,7 @@ select distinct
   a_t.is_accepted,
   a_t.score,
   a_t.answer_date,
+  a_t.link,
   g_t.is_valid
 from (
   select
@@ -16,6 +17,7 @@ from (
     is_accepted,
     score,
     answer_date,
+    link,
     t 
   from `{project_id}.{dataset_id}.answer_{year_month}`,
   unnest(tags) t
