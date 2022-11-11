@@ -1,4 +1,4 @@
-select distinct 
+select distinct
   a_t.user_id,
   a_t.display_name,
   a_t.answer_id,
@@ -6,8 +6,8 @@ select distinct
   a_t.is_accepted,
   a_t.score,
   a_t.answer_date,
-  a_t.link,
-  g_t.is_valid
+  g_t.is_valid,
+  if(a_t.score < 0, 'true', 'false') as is_downvoted
 from (
   select
     user_id,
@@ -17,8 +17,7 @@ from (
     is_accepted,
     score,
     answer_date,
-    link,
-    t 
+    t
   from `{project_id}.{dataset_id}.answer_{year_month}`,
   unnest(tags) t
 ) a_t

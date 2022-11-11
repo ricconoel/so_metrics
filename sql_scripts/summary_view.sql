@@ -7,6 +7,7 @@ select
   t_ans.PAR_count,
   t_com.comment_count,
   t_total.total_cases,
+  t_ans.with_downvote
 from `{project_id}.{dataset_id}.calc_answer_{year_month}` t_ans
 full outer join `{project_id}.{dataset_id}.calc_comment_{year_month}` t_com
   on t_ans.user_id = t_com.user_id
