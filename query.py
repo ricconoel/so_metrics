@@ -68,3 +68,42 @@ def create_summary_view(project_id,dataset_id,year_month):
 
     return view_ref
 
+def create_weekly_answer_view(project_id,dataset_id,year_month):
+
+    view_id = f"{project_id}.{dataset_id}.calc_weekly_answer_{year_month}"
+    q = convert_file_to_string(constants.WEEKLY_ANSWER_VIEW).format(project_id=project_id,dataset_id=dataset_id,year_month=year_month)
+    view_ref = try_create_view(view_id=view_id,query_str=q)
+
+    return view_ref
+
+def create_weekly_comment_view(project_id,dataset_id,year_month):
+
+    view_id = f"{project_id}.{dataset_id}.calc_weekly_comment_{year_month}"
+    q = convert_file_to_string(constants.WEEKLY_COMMENT_VIEW).format(project_id=project_id,dataset_id=dataset_id,year_month=year_month)
+    view_ref = try_create_view(view_id=view_id,query_str=q)
+
+    return view_ref
+
+def create_weekly_total_view(project_id,dataset_id,year_month):
+
+    view_id = f"{project_id}.{dataset_id}.calc_weekly_total_{year_month}"
+    q = convert_file_to_string(constants.WEEKLY_TOTAL_VIEW).format(project_id=project_id,dataset_id=dataset_id,year_month=year_month)
+    view_ref = try_create_view(view_id=view_id,query_str=q)
+
+    return view_ref
+
+def create_weekly_summary_view(project_id,dataset_id,year_month):
+
+    view_id = f"{project_id}.{dataset_id}.calc_weekly_summary_{year_month}"
+    q = convert_file_to_string(constants.WEEKLY_SUMMARY_VIEW).format(project_id=project_id,dataset_id=dataset_id,year_month=year_month)
+    view_ref = try_create_view(view_id=view_id,query_str=q)
+
+    return view_ref
+
+def create_prog_weekly_summary_view(project_id,dataset_id,year_month):
+
+    view_id = f"{project_id}.{dataset_id}.calc_prog_weekly_summary_{year_month}"
+    q = convert_file_to_string(constants.PROG_WEEKLY_SUMMARY_VIEW).format(project_id=project_id,dataset_id=dataset_id,year_month=year_month)
+    view_ref = try_create_view(view_id=view_id,query_str=q)
+
+    return view_ref
