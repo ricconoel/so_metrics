@@ -126,8 +126,6 @@ def query_runner(table_name_suffix):
     weekly_summary_view_id = query.create_weekly_summary_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
     prog_weekly_summary_view_id = query.create_prog_weekly_summary_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
 
-
-
 def main():
 
     date_dict = generate_dates()
