@@ -13,4 +13,5 @@ full outer join `{project_id}.{dataset_id}.calc_weekly_comment_{year_month}` t_c
   on t_ans.user_id = t_com.user_id and t_ans.week_date = t_com.week_date
 full outer join `{project_id}.{dataset_id}.calc_weekly_total_{year_month}` t_total
   on t_total.user_id = coalesce(t_com.user_id,t_ans.user_id) and t_total.post_week = coalesce(t_com.week_date,t_ans.week_date)
+where total_cases is not null
 order by post_week
