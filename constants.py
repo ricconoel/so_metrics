@@ -1,8 +1,7 @@
 so_ids=[19371698,19430638,19371700,18241184,19371813,16895640,14733669,17720354,19371728,19372058,16895625,19371701,19229284,17720353,19229284,19378437,19378826]
 BUCKET_NAME="so-dev-tracker"
 PROJECT_ID="tiph-ricconoel-batch8"
-#DATASET_ID="so_dataset"
-DATASET_ID="so_dataset_dev"
+DATASET_ID="so_dataset"
 FILTER_ANSWER_VIEW="./sql_scripts/filter_answer_view.sql"
 ANSWER_VIEW="./sql_scripts/answer_view.sql"
 COMMENT_VIEW="./sql_scripts/comment_view.sql"
