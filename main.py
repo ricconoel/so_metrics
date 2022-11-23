@@ -120,6 +120,11 @@ def query_runner(table_name_suffix):
     total_view_id = query.create_total_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
     summary_view_id = query.create_summary_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
 
+    weekly_answer_view_id = query.create_weekly_answer_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
+    weekly_comment_view_id = query.create_weekly_comment_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
+    weekly_total_view_id = query.create_weekly_total_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
+    weekly_summary_view_id = query.create_weekly_summary_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
+    prog_weekly_summary_view_id = query.create_prog_weekly_summary_view(project_id=constants.PROJECT_ID,dataset_id=constants.DATASET_ID,year_month=table_name_suffix)
 
 def main():
 
