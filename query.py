@@ -30,7 +30,7 @@ def create_filter_answer_view(project_id,dataset_id,year_month):
 
     view_id = f"{project_id}.{dataset_id}.filtered_answer_{year_month}"
 
-    q = convert_file_to_string(constants.FILTER_ANSWER_VIEW).format(project_id=project_id,dataset_id=dataset_id,year_month=year_month)
+    q = convert_file_to_string(constants.FILTER_ANSWER_VIEW).format(project_id=project_id,dataset_id=dataset_id,year_month=year_month,gcp_tags_table=constants.GCP_TAGS_TABLE)
     view_ref = try_create_view(view_id=view_id,query_str=q)
 
     return view_ref
