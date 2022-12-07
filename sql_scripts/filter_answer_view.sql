@@ -23,6 +23,6 @@ from (
   from `{project_id}.{dataset_id}.answer_{year_month}`,
   unnest(tags) t
 ) a_t
-inner join `tiph-ricconoel-batch8.so_dataset.gcp_tags` g_t
+inner join `{gcp_tags_table}` g_t
   on g_t.tags = a_t.t
 order by answer_date
